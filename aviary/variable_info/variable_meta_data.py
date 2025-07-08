@@ -15,7 +15,7 @@ from aviary.variable_info.enums import (
     ProblemType,
     Verbosity,
 )
-from aviary.variable_info.variables import Aircraft, Dynamic, Mission, Settings
+from aviary.variable_info.variables import Aircraft, Dynamic, Mission, Settings, Payload_Range
 
 # ---------------------------
 # Meta data associated with variables in the aircraft data hierarchy.
@@ -8049,6 +8049,112 @@ add_meta_data(
     types=bool,
     desc='if true, aviary runs 2 off design missions and creates a payload range diagram.',
 )
+
+#  .----------------.  .----------------.  .----------------.  .----------------.  .----------------.  .----------------.  .----------------.  .----------------. 
+# | .--------------. || .--------------. || .--------------. || .--------------. || .--------------. || .--------------. || .--------------. || .--------------. |
+# | |   ______     | || |      __      | || |  ____  ____  | || |   _____      | || |     ____     | || |      __      | || |  ________    | || |              | |
+# | |  |_   __ \   | || |     /  \     | || | |_  _||_  _| | || |  |_   _|     | || |   .'    `.   | || |     /  \     | || | |_   ___ `.  | || |              | |
+# | |    | |__) |  | || |    / /\ \    | || |   \ \  / /   | || |    | |       | || |  /  .--.  \  | || |    / /\ \    | || |   | |   `. \ | || |    ______    | |
+# | |    |  ___/   | || |   / ____ \   | || |    \ \/ /    | || |    | |   _   | || |  | |    | |  | || |   / ____ \   | || |   | |    | | | || |   |______|   | |
+# | |   _| |_      | || | _/ /    \ \_ | || |    _|  |_    | || |   _| |__/ |  | || |  \  `--'  /  | || | _/ /    \ \_ | || |  _| |___.' / | || |              | |
+# | |  |_____|     | || ||____|  |____|| || |   |______|   | || |  |________|  | || |   `.____.'   | || ||____|  |____|| || | |________.'  | || |              | |
+# | |              | || |              | || |              | || |              | || |              | || |              | || |              | || |              | |
+# | '--------------' || '--------------' || '--------------' || '--------------' || '--------------' || '--------------' || '--------------' || '--------------' |
+#  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'  '----------------' 
+#  .----------------.  .----------------.  .-----------------. .----------------.  .----------------.                                                             
+# | .--------------. || .--------------. || .--------------. || .--------------. || .--------------. |                                                            
+# | |  _______     | || |      __      | || | ____  _____  | || |    ______    | || |  _________   | |                                                            
+# | | |_   __ \    | || |     /  \     | || ||_   \|_   _| | || |  .' ___  |   | || | |_   ___  |  | |                                                            
+# | |   | |__) |   | || |    / /\ \    | || |  |   \ | |   | || | / .'   \_|   | || |   | |_  \_|  | |                                                            
+# | |   |  __ /    | || |   / ____ \   | || |  | |\ \| |   | || | | |    ____  | || |   |  _|  _   | |                                                            
+# | |  _| |  \ \_  | || | _/ /    \ \_ | || | _| |_\   |_  | || | \ `.___]  _| | || |  _| |___/ |  | |                                                            
+# | | |____| |___| | || ||____|  |____|| || ||_____|\____| | || |  `._____.'   | || | |_________|  | |                                                            
+# | |              | || |              | || |              | || |              | || |              | |                                                            
+# | '--------------' || '--------------' || '--------------' || '--------------' || '--------------' |                                                            
+#  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'   
+
+add_meta_data(
+    Payload_Range.MAX_PAYLOAD_0_FUEL_RANGE,
+    meta_data=_MetaData,
+    historical_name={'GASP': None, 'FLOPS': None, 'LEAPS1': None},
+    units='unitless',
+    desc='Creates a list of the range (x) and payload (y) values at each specified point on the payload_range diagram.',
+    option=True,
+    default_value=0.0,
+)
+
+add_meta_data(
+    Payload_Range.MAX_PAYLOAD_0_FUEL_PAYLOAD,
+    meta_data=_MetaData,
+    historical_name={'GASP': None, 'FLOPS': None, 'LEAPS1': None},
+    units='unitless',
+    desc='Creates a list of the range (x) and payload (y) values at each specified point on the payload_range diagram.',
+    option=True,
+    default_value=0.0,
+)
+
+add_meta_data(
+    Payload_Range.MAX_PAYLOAD_PLUS_FUEL_RANGE,
+    meta_data=_MetaData,
+    historical_name={'GASP': None, 'FLOPS': None, 'LEAPS1': None},
+    units='unitless',
+    desc='Creates a list of the range (x) and payload (y) values at each specified point on the payload_range diagram.',
+    option=True,
+    default_value=0.0,
+)
+
+add_meta_data(
+    Payload_Range.MAX_PAYLOAD_PLUS_FUEL_PAYLOAD,
+    meta_data=_MetaData,
+    historical_name={'GASP': None, 'FLOPS': None, 'LEAPS1': None},
+    units='unitless',
+    desc='Creates a list of the range (x) and payload (y) values at each specified point on the payload_range diagram.',
+    option=True,
+    default_value=0.0,
+)
+
+
+add_meta_data(
+    Payload_Range.MAX_FUEL_PLUS_PAYLOAD_RANGE,
+    meta_data=_MetaData,
+    historical_name={'GASP': None, 'FLOPS': None, 'LEAPS1': None},
+    units='unitless',
+    desc='Creates a list of the range (x) and payload (y) values at each specified point on the payload_range diagram.',
+    option=True,
+    default_value=0.0,
+)
+
+add_meta_data(
+    Payload_Range.MAX_FUEL_PLUS_PAYLOAD_PAYLOAD,
+    meta_data=_MetaData,
+    historical_name={'GASP': None, 'FLOPS': None, 'LEAPS1': None},
+    units='unitless',
+    desc='Creates a list of the range (x) and payload (y) values at each specified point on the payload_range diagram.',
+    option=True,
+    default_value=0.0,
+)
+
+
+add_meta_data(
+    Payload_Range.MAX_FUEL_0_PAYLOAD_RANGE,
+    meta_data=_MetaData,
+    historical_name={'GASP': None, 'FLOPS': None, 'LEAPS1': None},
+    units='unitless',
+    desc='Creates a list of the range (x) and payload (y) values at each specified point on the payload_range diagram.',
+    option=True,
+    default_value=0.0,
+)
+
+add_meta_data(
+    Payload_Range.MAX_FUEL_0_PAYLOAD_PAYLOAD,
+    meta_data=_MetaData,
+    historical_name={'GASP': None, 'FLOPS': None, 'LEAPS1': None},
+    units='unitless',
+    desc='Creates a list of the range (x) and payload (y) values at each specified point on the payload_range diagram.',
+    option=True,
+    default_value=0.0,
+)
+
 
 # here we create a copy of the Aviary-core metadata. The reason for this
 # copy is that if we simply imported the Aviary _MetaData in all the

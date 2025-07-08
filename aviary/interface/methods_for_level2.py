@@ -44,7 +44,7 @@ from aviary.variable_info.enums import (
 )
 from aviary.variable_info.functions import setup_model_options, setup_trajectory_params
 from aviary.variable_info.variable_meta_data import _MetaData as BaseMetaData
-from aviary.variable_info.variables import Aircraft, Dynamic, Mission, Settings
+from aviary.variable_info.variables import Aircraft, Dynamic, Mission, Settings, Payload_Range
 
 FLOPS = LegacyCode.FLOPS
 GASP = LegacyCode.GASP
@@ -1967,10 +1967,17 @@ class AviaryProblem(om.Problem):
         #point 1 along the y axis (range=0)
         payload_1 = float(self.get_val(Aircraft.CrewPayload.TOTAL_PAYLOAD_MASS))
         range_1 = 0 
+        
+        self.aviary_inputs.set_val(Payload_Range.MAX_PAYLOAD_0_FUEL_PAYLOAD, payload_1)
+        self.aviary_inputs.set_val(Payload_Range.MAX_PAYLOAD_0_FUEL_RANGE, range_1)
+
         #point 2, sizing mission payload and range
         payload_2 = payload_1
         range_2=float(self.get_val(Mission.Summary.RANGE))
 
+        self.aviary_inputs.set_val(Payload_Range.MAX_PAYLOAD_PLUS_FUEL_PAYLOAD, payload_2)
+        self.aviary_inputs.set_val(Payload_Range.MAX_PAYLOAD_PLUS_FUEL_RANGE, range_2)
+        
         #point 3, fallout mission with max fuel and payload on top of that
         gross_mass = float(self.get_val(Mission.Summary.GROSS_MASS))
         operating_mass=float(self.get_val(Aircraft.Design.OPERATING_MASS))
@@ -1996,6 +2003,10 @@ class AviaryProblem(om.Problem):
         payload_3=float(prob_fallout_max_fuel.get_val(Aircraft.CrewPayload.TOTAL_PAYLOAD_MASS))
         range_3=float(prob_fallout_max_fuel.get_val(Mission.Summary.RANGE))
 
+        #Set variables for variable hierarchy
+        self.aviary_inputs.set_val(Payload_Range.MAX_FUEL_PLUS_PAYLOAD_PAYLOAD, payload_3)
+        self.aviary_inputs.set_val(Payload_Range.MAX_FUEL_PLUS_PAYLOAD_RANGE, range_3)
+        
         #point 4, ferry mission with max fuel and 0 payload,
         allowed_mission_mass=operating_mass+fuel_capacity
         #Aviary as of 06/13/2025 does not allow for off-design missions of 0 passengers, therefore 1 will be used
@@ -2006,7 +2017,31 @@ class AviaryProblem(om.Problem):
         payload_4=float(prob_fallout_ferry.get_val(Aircraft.CrewPayload.TOTAL_PAYLOAD_MASS))
         range_4=float(prob_fallout_ferry.get_val(Mission.Summary.RANGE))
 
+        #Set variables
+        self.aviary_inputs.set_val(Payload_Range.MAX_FUEL_0_PAYLOAD_PAYLOAD, payload_4)
+        self.aviary_inputs.set_val(Payload_Range.MAX_FUEL_0_PAYLOAD_RANGE, range_4)
 
+        #writes csv file in dashboard
+        script_name = os.path.splitext(os.path.basename(sys.argv[0]))[0]
+        output_dir = f"{script_name}_out"
+        reports_dir = os.path.join(output_dir, "reports")
+        
+        os.makedirs(reports_dir, exist_ok=True)
+
+        csv_filepath = os.path.join(reports_dir, 'payload_range_data.csv')
+        with open(csv_filepath, 'w', newline='') as csvfile:
+            writer = csv.writer(csvfile)
+            
+            # Write header row
+            writer.writerow(['Point', 'Payload (lbs)', 'Range (NM)'])
+            
+            # Write the four points directly
+            writer.writerow(['Max Payload Zero Fuel', payload_1, range_1])
+            writer.writerow(['Sizing Mission', payload_2, range_2])
+            writer.writerow(['Max Fuel Plus Payload', payload_3, range_3])
+            writer.writerow(['Ferry Mission', payload_4, range_4])
+
+        #Also directly outputs to terminal
         payload_points=["Payload (lbs)", payload_1, payload_2, payload_3, payload_4]
         range_points=["Range (NM)", range_1, range_2, range_3, range_4]
 

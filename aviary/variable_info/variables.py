@@ -800,3 +800,18 @@ class Settings:
     PROBLEM_TYPE = 'settings:problem_type'
     VERBOSITY = 'settings:verbosity'
     PAYLOAD_RANGE = 'settings:payload_range'
+
+class Payload_Range:
+    """Payload_Range data hierarchy."""
+
+    MAX_PAYLOAD_0_FUEL_RANGE= 'payload_range:max_payload_0_fuel_range'
+    MAX_PAYLOAD_0_FUEL_PAYLOAD= 'payload_range:max_payload_0_fuel_payload'
+
+    MAX_PAYLOAD_PLUS_FUEL_RANGE = 'payload_range:max_payload_plus_fuel_range'
+    MAX_PAYLOAD_PLUS_FUEL_PAYLOAD = 'payload_range:max_payload_plus_fuel_payload'
+
+    MAX_FUEL_PLUS_PAYLOAD_RANGE = 'payload_range:max_fuel_plus_payload_range'
+    MAX_FUEL_PLUS_PAYLOAD_PAYLOAD = 'payload_range:max_fuel_plus_payload_payload'
+
+    MAX_FUEL_0_PAYLOAD_RANGE = 'payload_range:max_fuel_0_payload_range'
+    MAX_FUEL_0_PAYLOAD_PAYLOAD = 'payload_range:max_fuel_0_payload_payload'
