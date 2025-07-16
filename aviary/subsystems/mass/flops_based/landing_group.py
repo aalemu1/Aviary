@@ -5,6 +5,7 @@ from aviary.subsystems.mass.flops_based.landing_gear import (
     LandingGearMass,
     MainGearLength,
     NoseGearLength,
+    LandingGearTotalMass
 )
 from aviary.subsystems.mass.flops_based.landing_mass import LandingMass, LandingTakeoffMassRatio
 from aviary.variable_info.functions import add_aviary_option
@@ -45,6 +46,13 @@ class LandingMassGroup(om.Group):
         )
 
         self.add_subsystem(
+            'landing_gear_total_mass',
+            LandingGearTotalMass(),
+            promotes_inputs=['*'],
+            promotes_outputs=['*'],
+        )
+
+        self.add_subsystem(
             'landing_mass', LandingMass(), promotes_inputs=['*'], promotes_outputs=['*']
         )
 
@@ -56,3 +64,4 @@ class LandingMassGroup(om.Group):
             self.add_subsystem(
                 'landing_gear', LandingGearMass(), promotes_inputs=['*'], promotes_outputs=['*']
             )
+            

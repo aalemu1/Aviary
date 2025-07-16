@@ -7997,32 +7997,11 @@ add_meta_data(
 #  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'   
 
 add_meta_data(
-    Payload_Range.MAX_FUEL_0_PAYLOAD_PAYLOAD,
-    meta_data=_MetaData,
-    historical_name={'GASP': None, 'FLOPS': None, 'LEAPS1': None},
-    units='unitless',
-    desc='Creates a list of the range (x) and payload (y) values at each specified point on the payload_range diagram.',
-    option=True,
-    default_value=0.0,
-)
-
-add_meta_data(
-    Payload_Range.MAX_FUEL_0_PAYLOAD_RANGE,
-    meta_data=_MetaData,
-    historical_name={'GASP': None, 'FLOPS': None, 'LEAPS1': None},
-    units='unitless',
-    desc='Creates a list of the range (x) and payload (y) values at each specified point on the payload_range diagram.',
-    option=True,
-    default_value=0.0,
-)
-
-add_meta_data(
     Payload_Range.MAX_FUEL_PLUS_PAYLOAD_PAYLOAD,
     meta_data=_MetaData,
     historical_name={'GASP': None, 'FLOPS': None, 'LEAPS1': None},
-    units='unitless',
-    desc='Creates a list of the range (x) and payload (y) values at each specified point on the payload_range diagram.',
-    option=True,
+    units='lbm',
+    desc='payload capacity when the aircraft is at fuel capacity',
     default_value=0.0,
 )
 
@@ -8030,29 +8009,26 @@ add_meta_data(
     Payload_Range.MAX_FUEL_PLUS_PAYLOAD_RANGE,
     meta_data=_MetaData,
     historical_name={'GASP': None, 'FLOPS': None, 'LEAPS1': None},
-    units='unitless',
-    desc='Creates a list of the range (x) and payload (y) values at each specified point on the payload_range diagram.',
-    option=True,
+    units='NM',
+    desc='range achieved with maximum fuel and remaining payload capacity',
     default_value=0.0,
 )
 
 add_meta_data(
-    Payload_Range.MAX_PAYLOAD_0_FUEL_PAYLOAD,
+    Payload_Range.MAX_FUEL_ZERO_PAYLOAD_PAYLOAD,
     meta_data=_MetaData,
     historical_name={'GASP': None, 'FLOPS': None, 'LEAPS1': None},
-    units='unitless',
-    desc='Creates a list of the range (x) and payload (y) values at each specified point on the payload_range diagram.',
-    option=True,
+    units='lbm',
+    desc='payload value for a ferry range mission',
     default_value=0.0,
 )
 
 add_meta_data(
-    Payload_Range.MAX_PAYLOAD_0_FUEL_RANGE,
+    Payload_Range.MAX_FUEL_ZERO_PAYLOAD_RANGE,
     meta_data=_MetaData,
     historical_name={'GASP': None, 'FLOPS': None, 'LEAPS1': None},
-    units='unitless',
-    desc='Creates a list of the range (x) and payload (y) values at each specified point on the payload_range diagram.',
-    option=True,
+    units='NM',
+    desc='maximum range the aircraft can fly with at fuel capacity with 0 payload',
     default_value=0.0,
 )
 
@@ -8060,9 +8036,8 @@ add_meta_data(
     Payload_Range.MAX_PAYLOAD_PLUS_FUEL_PAYLOAD,
     meta_data=_MetaData,
     historical_name={'GASP': None, 'FLOPS': None, 'LEAPS1': None},
-    units='unitless',
-    desc='Creates a list of the range (x) and payload (y) values at each specified point on the payload_range diagram.',
-    option=True,
+    units='lbm',
+    desc='maximum payload capacity with fuel for design mission',
     default_value=0.0,
 )
 
@@ -8070,9 +8045,26 @@ add_meta_data(
     Payload_Range.MAX_PAYLOAD_PLUS_FUEL_RANGE,
     meta_data=_MetaData,
     historical_name={'GASP': None, 'FLOPS': None, 'LEAPS1': None},
-    units='unitless',
-    desc='Creates a list of the range (x) and payload (y) values at each specified point on the payload_range diagram.',
-    option=True,
+    units='NM',
+    desc='range achieved with user input paylod and designed fuel',
+    default_value=0.0,
+)
+
+add_meta_data(
+    Payload_Range.MAX_PAYLOAD_ZERO_FUEL_PAYLOAD,
+    meta_data=_MetaData,
+    historical_name={'GASP': None, 'FLOPS': None, 'LEAPS1': None},
+    units='lbm',
+    desc='maximum structural payload capacity',
+    default_value=0.0,
+)
+
+add_meta_data(
+    Payload_Range.MAX_PAYLOAD_ZERO_FUEL_RANGE,
+    meta_data=_MetaData,
+    historical_name={'GASP': None, 'FLOPS': None, 'LEAPS1': None},
+    units='NM',
+    desc='range value with maximum payload and 0 fuel, will always be 0',
     default_value=0.0,
 )
 
