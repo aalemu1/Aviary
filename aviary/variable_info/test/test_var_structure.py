@@ -77,6 +77,7 @@ class VariableStructureTest(unittest.TestCase):
             + get_names_from_hierarchy(Mission)
             + get_names_from_hierarchy(Dynamic)
             + get_names_from_hierarchy(Settings)
+            + get_names_from_hierarchy(Payload_Range)
         )
 
         assert_no_duplicates(aviary_names)
