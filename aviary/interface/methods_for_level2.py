@@ -1937,7 +1937,7 @@ class AviaryProblem(om.Problem):
         self.problem_ran_successfully = not failed
 
         # Checks of the payload/range toggle in the aviary inputs csv file has been set and that the current problem is a sizing mission.
-        if payload_range_bool and self.problem_type is ProblemType.SIZING:
+        if payload_range_bool:
             # Checks to determine if the set gross mass for off design would be greater
             # Than the gross mass of the sizing mission.
             self.run_payload_range()
@@ -1959,7 +1959,7 @@ class AviaryProblem(om.Problem):
 
         # Checks if the sizing mission has run successfully.
         # If the problem has not run successfully, then we do not run the payload/range function.
-        if self.problem_ran_successfully:
+        if self.problem_ran_successfully and self.problem_type is ProblemType.SIZING:
             # Off-design missions do not currently work for GASP masses or missions.
             mass_method = self.aviary_inputs.get_val(Settings.MASS_METHOD)
             equations_of_motion = self.aviary_inputs.get_val(Settings.EQUATIONS_OF_MOTION)
